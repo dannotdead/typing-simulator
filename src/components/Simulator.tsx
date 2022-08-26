@@ -8,7 +8,6 @@ const SimulatorTemplate = styled.div`
 	background-color: white;
 	padding: 30px;
 	width: 800px;
-	height: 400px;
 	border-radius: 16px;
 `
 
