@@ -1,11 +1,21 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import styled from 'styled-components'
+import Simulator from './components/Simulator'
 
-function App() {
+const StyledApp = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: lightgray;
+	padding: 0 20px;
+`
+
+const App = () => {
 	return (
-		<div>
-			App
-		</div>
+		<StyledApp>
+			<Simulator />
+		</StyledApp>
 	);
 }
 
