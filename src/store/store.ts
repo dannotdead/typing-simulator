@@ -7,40 +7,31 @@ type Response = {
 
 class Store {
 	text: string[] = []
-	currentChar: string = ''
 	currentCharIndex: number = 0
-	typingError: boolean = false
-	uncorrectedErrors: number = 0
 	typingSpeed: number = 0
 	typingAccuracy: number = 0
-	typingTime: number = 0
-	startTypingFlag: boolean = false
-	interval: any
+	typingError: boolean = false
+	currentChar: string = ''
+	private uncorrectedErrors: number = 0
+	private typingTime: number = 0
+	private startTypingFlag: boolean = false
+	private interval: any
 
 	constructor() {
 		makeAutoObservable(this)
 	}
 
+	// API - Get text
 	generateText() {
 		fetch('https://fish-text.ru/get?&format=json&number=1')
 			.then(res => res.json())
 			.then((data: Response) => {
-				runInAction(() => {
-					this.text = data.text.split('')
-					this.currentChar = data.text[0]
-					this.currentCharIndex = 0
-					this.typingSpeed = 0
-					this.typingTime = 0
-					this.uncorrectedErrors = 0
-					this.typingError = false
-					this.startTypingFlag = false
-					this.typingAccuracy = 0
-					clearInterval(this.interval)
-				})
+				runInAction(() => this.resetValues(data))
 			})
 			.catch(err => console.error(err))
 	}
 
+	// Character processing
 	incrementCharIndex() {
 		this.currentCharIndex += 1
 	}
@@ -71,16 +62,30 @@ class Store {
 		this.typingError = false
 	}
 
-	countTypingTime() {
+	// Speed and accuracy processing
+	private countTypingTime() {
 		this.typingTime += 1
 	}
 
-	countTypingSpeed() {
+	private countTypingSpeed() {
 		this.typingSpeed = Math.round(((this.currentCharIndex / 5) - this.uncorrectedErrors) / (this.typingTime / 60))
 	}
 
-	countTypingAccuracy() {
+	private countTypingAccuracy() {
 		this.typingAccuracy = Math.floor((100 - (this.uncorrectedErrors / this.text.length) * 100) * 100) / 100
+	}
+
+	private resetValues = (data: Response) => {
+		this.text = data.text.split('')
+		this.currentChar = data.text[0]
+		this.currentCharIndex = 0
+		this.typingSpeed = 0
+		this.typingTime = 0
+		this.uncorrectedErrors = 0
+		this.typingError = false
+		this.startTypingFlag = false
+		this.typingAccuracy = 0
+		clearInterval(this.interval)
 	}
 }
 
