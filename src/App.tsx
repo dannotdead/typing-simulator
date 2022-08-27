@@ -10,7 +10,7 @@ const StyledApp = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-	background-color: lightgray;
+	background-color: #101120;
 	padding: 0 20px;
 `
 

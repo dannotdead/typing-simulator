@@ -9,9 +9,10 @@ const CenteredBody = styled.div`
 	flex-direction: column;
 	align-items: center;
 	gap: 25px;
-	background-color: #F5F5FA;
+	background-color: #1B1D36;
+	color: #99D6EA;
 	padding: 10px;
-	border-radius: 16px;
+	border-radius: 4px;
 `
 
 const StartModal = () => {

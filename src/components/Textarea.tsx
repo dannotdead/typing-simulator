@@ -7,17 +7,17 @@ const TextareaTemplate = styled.div`
 	position: relative;
 	width: 75%;
 	padding-right: 10px;
+	color: #99D6EA;
 `
 
 const EnteredTextarea = styled.span`
-	color: green;
+	color: #FCA6D1;
 `
 
 const CurrentChar = styled.span<{typingError: boolean}>`
-	color: white;
-	border: 1px solid ${props => props.typingError ? 'red' : 'green'};
-	border-radius: 4px;
-	background-color: ${props => props.typingError ? 'red' : 'green'};
+	color: #1B1D36;
+	border-left: 2px solid ${props => props.typingError ? '#F9A620' : '#99D6EA'};
+	background-color: ${props => props.typingError ? '#F9A620' : '#99D6EA'};
 `
 
 const Textarea = observer(() => {
