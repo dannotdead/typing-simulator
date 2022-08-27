@@ -35,7 +35,7 @@ const Textarea = observer(() => {
 			store.incrementCharIndex()
 			store.changeCurrentChar()
 			store.inputCorrectChar()
-		} else {
+		} else if (!store.typingError) {
 			store.inputWrongChar()
 		}
 	}

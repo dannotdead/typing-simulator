@@ -10,6 +10,11 @@ class Store {
 	currentChar: string = ''
 	currentCharIndex: number = 0
 	typingError: boolean = false
+	uncorrectedErrors: number = 0
+	typingSpeed: number = 0
+	typingTime: number = 0
+	startTypingFlag: boolean = false
+	interval: any
 
 	constructor() {
 		makeAutoObservable(this)
@@ -23,6 +28,12 @@ class Store {
 					this.text = data.text.split('')
 					this.currentChar = data.text[0]
 					this.currentCharIndex = 0
+					this.typingSpeed = 0
+					this.typingTime = 0
+					this.uncorrectedErrors = 0
+					this.typingError = false
+					this.startTypingFlag = false
+					clearInterval(this.interval)
 				})
 			})
 			.catch(err => console.error(err))
@@ -34,14 +45,35 @@ class Store {
 
 	changeCurrentChar() {
 		this.currentChar = this.text[this.currentCharIndex]
+
+		if (!this.startTypingFlag) {
+			this.startTypingFlag = true
+			this.interval = setInterval(() => {
+				this.countTypingTime()
+				this.countTypingSpeed()
+			}, 1000)
+		}
+
+		if (this.text.length === this.currentCharIndex) {
+			clearInterval(this.interval)
+		}
 	}
 
 	inputWrongChar() {
 		this.typingError = true
+		this.uncorrectedErrors = this.uncorrectedErrors + 1
 	}
 
 	inputCorrectChar() {
 		this.typingError = false
+	}
+
+	countTypingTime() {
+		this.typingTime += 1
+	}
+
+	countTypingSpeed() {
+		this.typingSpeed = Math.round(((this.currentCharIndex / 5) - this.uncorrectedErrors) / (this.typingTime / 60))
 	}
 }
 
