@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ControlsSpeed from './ControlsSpeed'
 import ControlsAccuracy from './ControlsAccuracy'
-import RestartButton from './RestartButton'
+import Button from './Button'
 
 const ControlsTemplate = styled.div`
 	display: flex;
@@ -16,7 +16,7 @@ const Controls = () => {
 		<ControlsTemplate>
 			<ControlsSpeed />
 			<ControlsAccuracy />
-			<RestartButton />
+			<Button>Заново</Button>
 		</ControlsTemplate>
 	)
 }

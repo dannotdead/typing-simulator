@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {observer} from 'mobx-react-lite'
 import Simulator from './components/Simulator'
-import StartModal from './components/Modal'
+import StartModal from './components/StartModal'
 import modal from './store/modal'
 
 const StyledApp = styled.div`
