@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import ControlsSpeed from './ControlsSpeed'
 import ControlsAccuracy from './ControlsAccuracy'
 import RestartButton from './RestartButton'
-import StartButton from './StartButton'
 
 const ControlsTemplate = styled.div`
 	display: flex;
@@ -18,7 +17,6 @@ const Controls = () => {
 			<ControlsSpeed />
 			<ControlsAccuracy />
 			<RestartButton />
-			<StartButton />
 		</ControlsTemplate>
 	)
 }

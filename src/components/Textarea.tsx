@@ -31,11 +31,10 @@ const Textarea = observer(() => {
 	}, [])
 
 	const onKeypress = (event: KeyboardEvent) => {
-		console.log(store.typingError)
 		if (store.currentChar === event.key) {
 			store.incrementCharIndex()
 			store.changeCurrentChar()
-			store.enterText(event.key)
+			store.inputCorrectChar()
 		} else {
 			store.inputWrongChar()
 		}
@@ -43,10 +42,6 @@ const Textarea = observer(() => {
 
 	return (
 		<TextareaTemplate>
-			{/*<EnteredTextarea>*/}
-			{/*	{store.enteredText}*/}
-			{/*	<CurrentChar store={store}>{store.currentChar}</CurrentChar>*/}
-			{/*</EnteredTextarea>*/}
 			{store.text.map((symbol, index) => {
 				if (index === store.currentCharIndex) {
 					return <CurrentChar key={`${symbol}${index}`} typingError={store.typingError}>{symbol}</CurrentChar>

@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import {observer} from 'mobx-react-lite'
 import Simulator from './components/Simulator'
+import StartModal from './components/Modal'
+import modal from './store/modal'
 
 const StyledApp = styled.div`
 	display: flex;
@@ -11,12 +14,13 @@ const StyledApp = styled.div`
 	padding: 0 20px;
 `
 
-const App = () => {
+const App = observer(() => {
 	return (
 		<StyledApp>
+			{modal.show && <StartModal />}
 			<Simulator />
 		</StyledApp>
 	);
-}
+})
 
 export default App;

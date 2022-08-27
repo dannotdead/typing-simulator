@@ -9,7 +9,6 @@ class Store {
 	text: string[] = []
 	currentChar: string = ''
 	currentCharIndex: number = 0
-	enteredText: string = ''
 	typingError: boolean = false
 
 	constructor() {
@@ -24,7 +23,6 @@ class Store {
 					this.text = data.text.split('')
 					this.currentChar = data.text[0]
 					this.currentCharIndex = 0
-					this.enteredText = ''
 				})
 			})
 			.catch(err => console.error(err))
@@ -38,16 +36,12 @@ class Store {
 		this.currentChar = this.text[this.currentCharIndex]
 	}
 
-	enterText(key: string) {
-		this.enteredText = this.enteredText + key
-	}
-
 	inputWrongChar() {
 		this.typingError = true
 	}
 
 	inputCorrectChar() {
-		this.text[this.currentCharIndex].fontcolor('green')
+		this.typingError = false
 	}
 }
 
