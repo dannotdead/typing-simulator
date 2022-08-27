@@ -15,7 +15,9 @@ const ControlsAccuracy = observer(() => {
 	return (
 		<AccuracyTemplate>
 			<div>Точность</div>
-			<AccuracyValue>{store.typingAccuracy} %</AccuracyValue>
+			<AccuracyValue>
+				{store.typingAccuracyString}
+			</AccuracyValue>
 		</AccuracyTemplate>
 	)
 })

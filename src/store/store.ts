@@ -5,13 +5,17 @@ type Response = {
 	text: string
 }
 
+// 1 - characters per minute (cpm), 5 - words per minute (wpm)
+type SpeedUnits = 1 | 5
+
 class Store {
 	text: string[] = []
 	currentCharIndex: number = 0
-	typingSpeed: number = 0
-	typingAccuracy: number = 0
 	typingError: boolean = false
 	currentChar: string = ''
+	private typingAccuracy: number = 0
+	private typingSpeed: number = 0
+	private typingSpeedUnits: SpeedUnits = 1
 	private uncorrectedErrors: number = 0
 	private typingTime: number = 0
 	private startTypingFlag: boolean = false
@@ -48,6 +52,7 @@ class Store {
 
 		if (this.text.length === this.currentCharIndex) {
 			clearInterval(this.interval)
+			this.countTypingSpeed()
 		} else {
 			this.currentChar = this.text[this.currentCharIndex]
 		}
@@ -63,16 +68,21 @@ class Store {
 	}
 
 	// Speed and accuracy processing
+	changeTypingSpeedUnits() {
+		this.typingSpeedUnits = this.typingSpeedUnits === 1 ? 5 : 1
+		this.countTypingSpeed()
+	}
+
 	private countTypingTime() {
 		this.typingTime += 1
 	}
 
 	private countTypingSpeed() {
-		this.typingSpeed = Math.round(((this.currentCharIndex / 5) - this.uncorrectedErrors) / (this.typingTime / 60))
+		this.typingSpeed = Math.round(((this.currentCharIndex / this.typingSpeedUnits) - this.uncorrectedErrors) / (this.typingTime / 60))
 	}
 
 	private countTypingAccuracy() {
-		this.typingAccuracy = Math.floor((100 - (this.uncorrectedErrors / this.text.length) * 100) * 100) / 100
+		this.typingAccuracy = 100 - (this.uncorrectedErrors / this.text.length) * 100
 	}
 
 	private resetValues = (data: Response) => {
@@ -86,6 +96,14 @@ class Store {
 		this.startTypingFlag = false
 		this.typingAccuracy = 0
 		clearInterval(this.interval)
+	}
+
+	get typingSpeedString() {
+		return `${this.typingSpeed > 0 ? this.typingSpeed : 0} ${this.typingSpeedUnits === 1 ? 'зн./мин.' : 'слов/мин.'}`
+	}
+
+	get typingAccuracyString() {
+		return `${this.typingAccuracy.toFixed(2)} %`
 	}
 }
 
