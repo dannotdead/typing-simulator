@@ -12,6 +12,7 @@ class Store {
 	typingError: boolean = false
 	uncorrectedErrors: number = 0
 	typingSpeed: number = 0
+	typingAccuracy: number = 0
 	typingTime: number = 0
 	startTypingFlag: boolean = false
 	interval: any
@@ -33,6 +34,7 @@ class Store {
 					this.uncorrectedErrors = 0
 					this.typingError = false
 					this.startTypingFlag = false
+					this.typingAccuracy = 0
 					clearInterval(this.interval)
 				})
 			})
@@ -40,28 +42,29 @@ class Store {
 	}
 
 	incrementCharIndex() {
-		this.currentCharIndex = this.currentCharIndex + 1
+		this.currentCharIndex += 1
 	}
 
 	changeCurrentChar() {
-		this.currentChar = this.text[this.currentCharIndex]
-
 		if (!this.startTypingFlag) {
 			this.startTypingFlag = true
 			this.interval = setInterval(() => {
 				this.countTypingTime()
 				this.countTypingSpeed()
+				this.countTypingAccuracy()
 			}, 1000)
 		}
 
 		if (this.text.length === this.currentCharIndex) {
 			clearInterval(this.interval)
+		} else {
+			this.currentChar = this.text[this.currentCharIndex]
 		}
 	}
 
 	inputWrongChar() {
 		this.typingError = true
-		this.uncorrectedErrors = this.uncorrectedErrors + 1
+		this.uncorrectedErrors += 1
 	}
 
 	inputCorrectChar() {
@@ -74,6 +77,10 @@ class Store {
 
 	countTypingSpeed() {
 		this.typingSpeed = Math.round(((this.currentCharIndex / 5) - this.uncorrectedErrors) / (this.typingTime / 60))
+	}
+
+	countTypingAccuracy() {
+		this.typingAccuracy = Math.floor((100 - (this.uncorrectedErrors / this.text.length) * 100) * 100) / 100
 	}
 }
 
