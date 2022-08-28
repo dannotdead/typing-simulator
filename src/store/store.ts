@@ -8,12 +8,15 @@ type Response = {
 // 1 - characters per minute (cpm), 5 - words per minute (wpm)
 type SpeedUnits = 1 | 5
 
+export type CurrentLocation = 'Ru' | 'En'
+
 class Store {
 	text: string[] = []
 	currentCharIndex: number = 0
 	typingError: boolean = false
 	currentChar: string = ''
 	progress: number = 0
+	private location: CurrentLocation = 'Ru'
 	private typingAccuracy: number = 0
 	private typingSpeed: number = 0
 	private typingSpeedUnits: SpeedUnits = 1
@@ -28,12 +31,31 @@ class Store {
 
 	// API - Get text
 	generateText() {
-		fetch('https://fish-text.ru/get?&format=json&number=1')
-			.then(res => res.json())
-			.then((data: Response) => {
-				runInAction(() => this.resetValues(data))
-			})
-			.catch(err => console.error(err))
+		switch (this.location) {
+			case 'Ru':
+				fetch('https://fish-text.ru/get?format=json&number=3')
+					.then(res => res.json())
+					.then((data: Response) => {
+						const sentences = data.text
+						runInAction(() => this.resetValues(sentences))
+					})
+					.catch(err => console.error(err))
+				break
+			case 'En':
+				fetch('https://baconipsum.com/api/?type=all-meat&sentences=3&format=json')
+					.then(res => res.json())
+					.then((data: string[]) => {
+						const sentences = data[0]
+						runInAction(() => this.resetValues(sentences))
+					})
+					.catch(err => console.error(err))
+				break
+		}
+	}
+
+	// Location processing
+	changeLocation(value: CurrentLocation) {
+		this.location = value
 	}
 
 	// Character processing
@@ -88,9 +110,9 @@ class Store {
 		this.typingAccuracy = 100 - (this.uncorrectedErrors / this.text.length) * 100
 	}
 
-	private resetValues = (data: Response) => {
-		this.text = data.text.split('')
-		this.currentChar = data.text[0]
+	private resetValues = (data: string) => {
+		this.text = data.split('')
+		this.currentChar = data[0]
 		this.currentCharIndex = 0
 		this.typingSpeed = 0
 		this.typingTime = 0
