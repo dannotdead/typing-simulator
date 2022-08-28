@@ -40,10 +40,16 @@ const ProgressInstance = styled.progress`
 	}
 `
 
+const CapsLockBlock = styled.div`
+  color: #F9A620;
+	margin-bottom: 15px;
+`
+
 const App = observer(() => {
 	return (
 		<StyledApp>
 			{modal.show && <StartModal />}
+			{store.isCapsLock && <CapsLockBlock>Включен Caps Lock</CapsLockBlock>}
 			<Simulator />
 			<ProgressInstance value={store.progress} max='100'/>
 			{store.progress === 100 && <FinishModal />}

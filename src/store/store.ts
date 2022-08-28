@@ -17,6 +17,7 @@ class Store {
 	currentChar: string = ''
 	progress: number = 0
 	numberOfSentences: number = 3
+	isCapsLock: boolean = false
 	private location: CurrentLocation = 'Ru'
 	private typingAccuracy: number = 0
 	private typingSpeed: number = 0
@@ -98,6 +99,10 @@ class Store {
 
 	inputCorrectChar() {
 		this.typingError = false
+	}
+
+	changeCapsLockState() {
+		this.isCapsLock = !this.isCapsLock
 	}
 
 	// Speed and accuracy processing

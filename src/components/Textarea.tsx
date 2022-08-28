@@ -33,9 +33,11 @@ const Textarea = observer(() => {
 
 	useEffect(() => {
 		document.addEventListener('keypress', onKeypress)
+		document.addEventListener('keydown', onKeyDown)
 
 		return () => {
 			document.removeEventListener('keypress', onKeypress)
+			document.removeEventListener('keydown', onKeyDown)
 		}
 	}, [])
 
@@ -47,6 +49,10 @@ const Textarea = observer(() => {
 		} else if (!store.typingError) {
 			store.inputWrongChar()
 		}
+	}
+
+	const onKeyDown = (event: KeyboardEvent) => {
+		if (event.code === 'CapsLock') store.changeCapsLockState()
 	}
 
 	return (
