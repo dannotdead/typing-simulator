@@ -13,6 +13,7 @@ class Store {
 	currentCharIndex: number = 0
 	typingError: boolean = false
 	currentChar: string = ''
+	progress: number = 0
 	private typingAccuracy: number = 0
 	private typingSpeed: number = 0
 	private typingSpeedUnits: SpeedUnits = 1
@@ -56,6 +57,8 @@ class Store {
 		} else {
 			this.currentChar = this.text[this.currentCharIndex]
 		}
+
+		this.progress = this.currentCharIndex / this.text.length * 100
 	}
 
 	inputWrongChar() {
@@ -95,6 +98,7 @@ class Store {
 		this.typingError = false
 		this.startTypingFlag = false
 		this.typingAccuracy = 0
+		this.progress = 0
 		clearInterval(this.interval)
 	}
 
