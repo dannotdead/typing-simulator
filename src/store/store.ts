@@ -32,6 +32,8 @@ class Store {
 
 	// API - Get text
 	generateText() {
+		this.text = []
+
 		switch (this.location) {
 			case 'Ru':
 				fetch(`https://fish-text.ru/get?format=json&number=${this.numberOfSentences}`)
