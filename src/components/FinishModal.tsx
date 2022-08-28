@@ -4,20 +4,21 @@ import {Modal} from 'react-bootstrap'
 import Button from './Controls/Button'
 import styled from 'styled-components'
 import store from '../store/store'
+import {ITheme} from '../const/theme'
 
 const CenteredBody = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 25px;
-	background-color: #1B1D36;
-	color: #99D6EA;
+	background-color: ${({theme}: {theme: ITheme}) => theme.templateBody};
+	color: ${({theme}: {theme: ITheme}) => theme.mainText};
 	padding: 10px;
 	border-radius: 4px;
 `
 
 const ResultValue = styled.span`
-	color: #F9A620;
+	color: ${({theme}: {theme: ITheme}) => theme.secondary};
 `
 
 const FinishModal = () => {

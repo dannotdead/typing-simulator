@@ -3,27 +3,28 @@ import styled from 'styled-components'
 import store from '../store/store'
 import {observer} from 'mobx-react-lite'
 import Spinner from 'react-bootstrap/Spinner'
+import {ITheme} from '../const/theme'
 
 const TextareaTemplate = styled.div`
 	position: relative;
 	width: 75%;
 	padding-right: 10px;
-	color: #99D6EA;
+	color: ${({theme}: {theme: ITheme}) => theme.mainText};
 `
 
 const EnteredTextarea = styled.span`
-	color: #FCA6D1;
+	color: ${({theme}: {theme: ITheme}) => theme.enteredText};
 `
 
 const CurrentChar = styled.span<{typingError: boolean}>`
-	color: #1B1D36;
-	border-left: 2px solid ${props => props.typingError ? '#F9A620' : '#99D6EA'};
-	background-color: ${props => props.typingError ? '#F9A620' : '#99D6EA'};
+	color: ${({theme}: {theme: ITheme}) => theme.templateBody};
+	border-left: 2px solid ${props => props.typingError ? props.theme.secondary : props.theme.mainText};
+	background-color: ${props => props.typingError ? props.theme.secondary : props.theme.mainText};
 `
 
 const SpinnerTemplate = styled.div`
 	position: relative;
-	color: #F9A620;
+	color: ${({theme}: {theme: ITheme}) => theme.secondary};
 	width: 50px;
 	left: 50%;
 	top: 45%;

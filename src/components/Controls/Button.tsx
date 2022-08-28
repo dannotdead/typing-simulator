@@ -2,17 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 import store from '../../store/store'
 import modal from '../../store/modal'
+import {ITheme} from '../../const/theme'
 
 const ButtonTemplate = styled.button`
 	align-items: center;
 	appearance: none;
-	background-color: #F9A620;
+	background-color: ${({theme}: {theme: ITheme}) => theme.secondary};
 	border-radius: 4px;
 	border-width: 0;
-	box-shadow: rgba(129, 81, 10, 0.4) 0 2px 4px,
-	rgba(129, 81, 10, 0.3) 0 7px 13px -3px;
+	box-shadow: ${({theme}: {theme: ITheme}) => theme.button.boxShadowSecond} 0 2px 4px,
+		${({theme}: {theme: ITheme}) => theme.button.boxShadowThird} 0 7px 13px -3px;
 	box-sizing: border-box;
-	color: #1B1D36;
+	color: ${({theme}: {theme: ITheme}) => theme.templateBody};
 	cursor: pointer;
 	display: inline-flex;
 	height: 48px;
@@ -35,19 +36,19 @@ const ButtonTemplate = styled.button`
 
 	&:focus {
 		outline: none;
-		box-shadow: #66440d 0 0 0 1.5px inset,
-			rgba(129, 81, 10, 0.4) 0 2px 4px,
-			rgba(129, 81, 10, 0.3) 0 7px 13px -3px;
+		box-shadow: ${({theme}: {theme: ITheme}) => theme.button.boxShadow} 0 0 0 1.5px inset,
+    	${({theme}: {theme: ITheme}) => theme.button.boxShadowSecond} 0 2px 4px,
+    	${({theme}: {theme: ITheme}) => theme.button.boxShadowThird} 0 7px 13px -3px;
 	}
 
 	&:hover {
-		box-shadow: rgba(129, 81, 10, 0.4) 0 4px 8px,
-		rgba(129, 81, 10, 0.3) 0 7px 13px -3px;
+		box-shadow: ${({theme}: {theme: ITheme}) => theme.button.boxShadowSecond} 0 4px 8px,
+    	${({theme}: {theme: ITheme}) => theme.button.boxShadowThird} 0 7px 13px -3px;
 		transform: translateY(-2px);
 	}
 
 	&:active {
-		box-shadow: #66440d 0 3px 7px inset;
+		box-shadow: ${({theme}: {theme: ITheme}) => theme.button.boxShadow} 0 3px 7px inset;
 		transform: translateY(2px);
 	}
 `

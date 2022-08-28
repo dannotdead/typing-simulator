@@ -6,6 +6,9 @@ import StartModal from './components/StartModal'
 import modal from './store/modal'
 import store from './store/store'
 import FinishModal from './components/FinishModal'
+import Theme from './components/Theme'
+import theme from './store/theme'
+import {ITheme} from './const/theme'
 
 const StyledApp = styled.div`
 	display: flex;
@@ -13,7 +16,7 @@ const StyledApp = styled.div`
 	align-items: center;
 	flex-direction: column;
 	height: 100vh;
-	background-color: #101120;
+	background-color: ${({theme}: {theme: ITheme}) => theme.mainBackground};
 	padding: 0 20px;
 `
 
@@ -30,30 +33,44 @@ const ProgressInstance = styled.progress`
 	}
 
 	&::-webkit-progress-value {
-		background-color: #F9A620;
+		background-color: ${({theme}: {theme: ITheme}) => theme.secondary};
 		border-radius: 0 0 16px 16px;
 	}
 
 	&::-moz-progress-bar {
-		background-color: #F9A620;
+		background-color: ${({theme}: {theme: ITheme}) => theme.secondary};
 		border-radius: 0 0 16px 16px;
 	}
 `
 
 const CapsLockBlock = styled.div`
-  color: #F9A620;
+  color: ${({theme}: {theme: ITheme}) => theme.secondary};
 	margin-bottom: 15px;
+`
+
+const ChangeThemeButton = styled.button`
+	position: absolute;
+	top: 0;
+	right: 0;
+	line-height: 25px;
+	margin: 10px 10px 0 0;
+  background: transparent;
+	outline: none;
+	border: none;
 `
 
 const App = observer(() => {
 	return (
-		<StyledApp>
-			{modal.show && <StartModal />}
-			{store.isCapsLock && <CapsLockBlock>Включен Caps Lock</CapsLockBlock>}
-			<Simulator />
-			<ProgressInstance value={store.progress} max='100'/>
-			{store.progress === 100 && <FinishModal />}
-		</StyledApp>
+		<Theme theme={theme.theme}>
+			<StyledApp>
+				{modal.show && <StartModal />}
+				{store.isCapsLock && <CapsLockBlock>Включен Caps Lock</CapsLockBlock>}
+				<Simulator />
+				<ProgressInstance value={store.progress} max='100'/>
+				{store.progress === 100 && <FinishModal />}
+				<ChangeThemeButton onClick={() => theme.changeTheme()}>{theme.themeValueString}</ChangeThemeButton>
+			</StyledApp>
+		</Theme>
 	);
 })
 

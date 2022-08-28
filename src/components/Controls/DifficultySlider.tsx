@@ -2,16 +2,17 @@ import React from 'react'
 import store from '../../store/store'
 import styled from 'styled-components'
 import {observer} from 'mobx-react-lite'
+import {ITheme} from '../../const/theme'
 
 const SliderTemplate = styled.div`
-	color: #99D6EA;
+	color: ${({theme}: {theme: ITheme}) => theme.mainText};
 `
 
 const SliderBody = styled.input`
   -webkit-appearance: none;
   margin-right: 15px;
   height: 7px;
-  background: #99D6EA;
+  background: ${({theme}: {theme: ITheme}) => theme.mainText};
   border-radius: 5px;
 	width: 100%;
 	
@@ -20,14 +21,14 @@ const SliderBody = styled.input`
     height: 15px;
     width: 15px;
     border-radius: 50%;
-    background: #F9A620;
+    background: ${({theme}: {theme: ITheme}) => theme.secondary};
     cursor: ew-resize;
-    box-shadow: 0 0 2px 0 #555;
+    box-shadow: 0 0 2px 0 ${({theme}: {theme: ITheme}) => theme.gray};
 	}
 `
 
 const NumberOfSentences = styled.div`
-	color: #F9A620;
+	color: ${({theme}: {theme: ITheme}) => theme.secondary};
 	text-align: center;
 `
 

@@ -4,33 +4,34 @@ import modal from '../store/modal'
 import styled from 'styled-components'
 import Button from './Controls/Button'
 import store, {CurrentLocation} from '../store/store'
+import {ITheme} from '../const/theme'
 
 const CenteredBody = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 25px;
-	background-color: #1B1D36;
-	color: #99D6EA;
+	background-color: ${({theme}: {theme: ITheme}) => theme.templateBody};
+	color: ${({theme}: {theme: ITheme}) => theme.mainText};
 	padding: 10px;
 	border-radius: 4px;
 `
 
 const ChooseLocation = styled.select`
 	cursor: pointer;
-	color: #FCA6D1;
+	color: ${({theme}: {theme: ITheme}) => theme.enteredText};
 	outline: none;
 	border: none;
 	background-color: transparent;
 	padding: 0 10px;
 	
 	&:hover {
-		text-shadow: 0 0 5px #FCA6D1;
+		text-shadow: 0 0 5px ${({theme}: {theme: ITheme}) => theme.enteredText};
 		transition: all 0.1s ease-in;
 	}
 	
 	option {
-		color: black;
+		color: ${({theme}: {theme: ITheme}) => theme.black};
 	}
 `
 
