@@ -16,6 +16,7 @@ class Store {
 	typingError: boolean = false
 	currentChar: string = ''
 	progress: number = 0
+	numberOfSentences: number = 3
 	private location: CurrentLocation = 'Ru'
 	private typingAccuracy: number = 0
 	private typingSpeed: number = 0
@@ -33,7 +34,7 @@ class Store {
 	generateText() {
 		switch (this.location) {
 			case 'Ru':
-				fetch('https://fish-text.ru/get?format=json&number=3')
+				fetch(`https://fish-text.ru/get?format=json&number=${this.numberOfSentences}`)
 					.then(res => res.json())
 					.then((data: Response) => {
 						const sentences = data.text
@@ -42,7 +43,7 @@ class Store {
 					.catch(err => console.error(err))
 				break
 			case 'En':
-				fetch('https://baconipsum.com/api/?type=all-meat&sentences=3&format=json')
+				fetch(`https://baconipsum.com/api/?type=all-meat&sentences=${this.numberOfSentences}&format=json`)
 					.then(res => res.json())
 					.then((data: string[]) => {
 						const sentences = data[0]
@@ -51,6 +52,11 @@ class Store {
 					.catch(err => console.error(err))
 				break
 		}
+	}
+
+	// Difficulty processing
+	changeNumberOfSentences(value: string) {
+		this.numberOfSentences = parseInt(value)
 	}
 
 	// Location processing

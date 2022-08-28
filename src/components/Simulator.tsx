@@ -19,7 +19,6 @@ const Simulator = () => {
 		<SimulatorTemplate>
 			<Textarea />
 			<Controls />
-
 		</SimulatorTemplate>
 	)
 }

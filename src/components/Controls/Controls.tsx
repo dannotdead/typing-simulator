@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import ControlsSpeed from './ControlsSpeed'
 import ControlsAccuracy from './ControlsAccuracy'
 import Button from './Button'
+import DifficultySlider from './DifficultySlider'
 
 const ControlsTemplate = styled.div`
 	display: flex;
@@ -16,6 +17,7 @@ const Controls = () => {
 		<ControlsTemplate>
 			<ControlsSpeed />
 			<ControlsAccuracy />
+			<DifficultySlider />
 			<Button>Заново</Button>
 		</ControlsTemplate>
 	)
