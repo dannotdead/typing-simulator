@@ -5,6 +5,7 @@ import Simulator from './components/Simulator'
 import StartModal from './components/StartModal'
 import modal from './store/modal'
 import store from './store/store'
+import FinishModal from './components/FinishModal'
 
 const StyledApp = styled.div`
 	display: flex;
@@ -45,6 +46,7 @@ const App = observer(() => {
 			{modal.show && <StartModal />}
 			<Simulator />
 			<ProgressInstance value={store.progress} max='100'/>
+			{store.progress === 100 && <FinishModal />}
 		</StyledApp>
 	);
 })
