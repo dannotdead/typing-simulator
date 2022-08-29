@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import store from '../../store/store'
-import modal from '../../store/modal'
 import {ITheme} from '../../const/theme'
 
 const ButtonTemplate = styled.button`
@@ -54,14 +53,13 @@ const ButtonTemplate = styled.button`
 `
 
 const Button = (props: any) => {
-
-	const handleClick = () => {
+	const handleMouseDown = (event: React.MouseEvent) => {
+		event.preventDefault()
 		store.generateText()
-		if (modal.show) modal.handleClose()
 	}
 
 	return (
-		<ButtonTemplate onClick={handleClick} {...props} />
+		<ButtonTemplate {...props} onMouseDown={(event) => handleMouseDown(event)}/>
 	)
 }
 

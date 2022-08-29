@@ -2,13 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import {observer} from 'mobx-react-lite'
 import Simulator from './components/Simulator'
-import StartModal from './components/StartModal'
-import modal from './store/modal'
 import store from './store/store'
-import FinishModal from './components/FinishModal'
 import Theme from './components/Theme'
 import theme from './store/theme'
 import {ITheme} from './const/theme'
+import ProgressBar from './components/ProgressBar'
+import CustomModal from './components/Modal/CustomModal'
+import ChooseLocation from './components/Modal/ChooseLocation'
+import ResultValue from './components/Modal/ResultValue'
 
 const StyledApp = styled.div`
 	display: flex;
@@ -18,29 +19,6 @@ const StyledApp = styled.div`
 	height: 100vh;
 	background-color: ${({theme}: {theme: ITheme}) => theme.mainBackground};
 	padding: 0 20px;
-`
-
-const ProgressInstance = styled.progress`
-	width: 100%;
-	max-width: 790px;
-	padding: 0 10px;
-	height: 5px;
-	border-radius: 0 0 16px 16px;
-
-	&::-webkit-progress-bar {
-		background-color: transparent;
-		border-radius: 0 0 16px 16px;
-	}
-
-	&::-webkit-progress-value {
-		background-color: ${({theme}: {theme: ITheme}) => theme.secondary};
-		border-radius: 0 0 16px 16px;
-	}
-
-	&::-moz-progress-bar {
-		background-color: ${({theme}: {theme: ITheme}) => theme.secondary};
-		border-radius: 0 0 16px 16px;
-	}
 `
 
 const CapsLockBlock = styled.div`
@@ -63,12 +41,29 @@ const App = observer(() => {
 	return (
 		<Theme theme={theme.theme}>
 			<StyledApp>
-				{modal.show && <StartModal />}
+				<CustomModal
+					children={<ChooseLocation />}
+					title='Приготовься печатать. Поехали!'
+					buttonText='Начать'
+				/>
+
 				{store.isCapsLock && <CapsLockBlock>Включен Caps Lock</CapsLockBlock>}
+
 				<Simulator />
-				<ProgressInstance value={store.progress} max='100'/>
-				{store.progress === 100 && <FinishModal />}
-				<ChangeThemeButton onClick={() => theme.changeTheme()}>{theme.themeValueString}</ChangeThemeButton>
+
+				<ProgressBar />
+
+				{store.progress === 100 &&
+					<CustomModal
+						children={<ResultValue />}
+						title='Так держать! Вот твой результат:'
+						buttonText='Заново'
+					/>
+				}
+
+				<ChangeThemeButton onClick={() => theme.changeTheme()}>
+					{theme.themeValueString}
+				</ChangeThemeButton>
 			</StyledApp>
 		</Theme>
 	);

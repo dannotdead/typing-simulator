@@ -2,8 +2,8 @@ import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import store from '../store/store'
 import {observer} from 'mobx-react-lite'
-import Spinner from 'react-bootstrap/Spinner'
 import {ITheme} from '../const/theme'
+import Loader from './Loader'
 
 const TextareaTemplate = styled.div`
 	position: relative;
@@ -20,14 +20,6 @@ const CurrentChar = styled.span<{typingError: boolean}>`
 	color: ${({theme}: {theme: ITheme}) => theme.templateBody};
 	border-left: 2px solid ${props => props.typingError ? props.theme.secondary : props.theme.mainText};
 	background-color: ${props => props.typingError ? props.theme.secondary : props.theme.mainText};
-`
-
-const SpinnerTemplate = styled.div`
-	position: relative;
-	color: ${({theme}: {theme: ITheme}) => theme.secondary};
-	width: 50px;
-	left: 50%;
-	top: 45%;
 `
 
 const Textarea = observer(() => {
@@ -69,10 +61,7 @@ const Textarea = observer(() => {
 					}
 
 					return <span key={`${symbol}${index}`}>{symbol}</span>
-				}) :
-				<SpinnerTemplate>
-					<Spinner animation='border' />
-				</SpinnerTemplate>
+				}) : <Loader />
 			}
 		</TextareaTemplate>
 	)
