@@ -25,6 +25,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
+    'react/no-children-prop': 'off',
     'simple-import-sort/imports': [
       'error',
       {
